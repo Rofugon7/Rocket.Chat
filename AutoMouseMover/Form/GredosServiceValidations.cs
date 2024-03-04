@@ -153,7 +153,7 @@ namespace AutoMouseMover
         // Cursor timer elapsed
         private void CursorTimer_Tick(object sender, EventArgs e)
         {
-            //if (IsWithinTime())
+            if (IsWithinTime())
             {
                 clickTime = clickTime + 1;
                 mAutoMouseMover.MoveMouse();
@@ -254,62 +254,233 @@ namespace AutoMouseMover
 
         private bool IsWithinTime()
         {
-            Random r = new Random();
-            int m1 = 0;
-            int m2 = 0;
-            int m3 = 0;
-            int m4 = 0;
-            if (calc)
+            //Random r = new Random();
+            //int m1 = 0;
+            //int m2 = 0;
+            //int m3 = 0;
+            //int m4 = 0;
+            //if (calc)
+            //{
+            //    //mediodia
+            //    m1 = r.Next(-10, 10);
+            //    m2 = r.Next(-10, 10);
+            //    // entrada y salida
+            //    m3 = r.Next(-10, 2);
+            //    m4 = r.Next(-1, 10);
+            //}
+
+            //if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday || DateTime.Now.DayOfWeek == DayOfWeek.Sunday) return false;
+            //string gohome = "17:34:05";
+            //if (((DateTime.Now.Month == 6) && (DateTime.Now.Day >= 15)) || (DateTime.Now.Month == 7) || (DateTime.Now.Month == 8) || ((DateTime.Now.Month == 9) && (DateTime.Now.Day <= 15)))
+            //    gohome = "14:32:23";
+
+
+            //if (lunchtime)
+            //{
+            //    int rd = 0;
+            //    rd = (DateTime.Now.Day % 2 ==0) ? DateTime.Now.Day : DateTime.Now.Day * -1;
+            //    lunch = DateTime.Parse("13:30:02").AddMinutes(m1).AddSeconds(m2);
+            //    endlunch = lunch.AddMinutes(65).AddMinutes(r.Next(-5, 5)).AddSeconds(r.Next(-15, 12));
+            //    lunchtime = false;
+            //}
+            //else
+            //{
+            //    if (DateTime.Now.Hour ==7)
+            //        lunchtime = true;                
+            //}
+
+            //if (DateTime.Now.DayOfWeek != DayOfWeek.Friday && (DateTime.Now.TimeOfDay < DateTime.Parse("7:57:00").AddMinutes(m3).AddSeconds(m4).TimeOfDay || DateTime.Now.TimeOfDay > DateTime.Parse(gohome).AddMinutes(m4).AddSeconds(m3).TimeOfDay))
+            //{
+            //    calc = true;
+            //    Thread.Sleep(600000);
+            //    return false;
+            //}
+            //if (DateTime.Now.DayOfWeek != DayOfWeek.Friday && (!(DateTime.Now.TimeOfDay < lunch.TimeOfDay || DateTime.Now.TimeOfDay > endlunch.TimeOfDay)))
+            //{  
+            //    Thread.Sleep(600000);
+            //    return false;
+            //}
+            //if (DateTime.Now.DayOfWeek == DayOfWeek.Friday && (DateTime.Now.TimeOfDay < DateTime.Parse("7:56:00").AddMinutes(m3).AddSeconds(m4).TimeOfDay || DateTime.Now.TimeOfDay > DateTime.Parse("14:03:23").AddMinutes(m4).AddSeconds(m3).TimeOfDay))
+            //{
+            //    calc = true;
+            //    Thread.Sleep(600000);
+            //    return false;
+            //}
+            //calc = false;
+
+            if (DateTime.Now.TimeOfDay < dateTimePicker1.Value.TimeOfDay || DateTime.Now.TimeOfDay > dateTimePicker2.Value.TimeOfDay)
             {
-                //mediodia
-                m1 = r.Next(-10, 10);
-                m2 = r.Next(-10, 10);
-                // entrada y salida
-                m3 = r.Next(-10, 2);
-                m4 = r.Next(-1, 10);
-            }
-            
-            if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday || DateTime.Now.DayOfWeek == DayOfWeek.Sunday) return false;
-            string gohome = "17:34:05";
-            if (((DateTime.Now.Month == 6) && (DateTime.Now.Day >= 15)) || (DateTime.Now.Month == 7) || (DateTime.Now.Month == 8) || ((DateTime.Now.Month == 9) && (DateTime.Now.Day <= 15)))
-                gohome = "14:32:23";
-            
-        
-            if (lunchtime)
-            {
-                int rd = 0;
-                rd = (DateTime.Now.Day % 2 ==0) ? DateTime.Now.Day : DateTime.Now.Day * -1;
-                lunch = DateTime.Parse("13:30:02").AddMinutes(m1).AddSeconds(m2);
-                endlunch = lunch.AddMinutes(65).AddMinutes(r.Next(-5, 5)).AddSeconds(r.Next(-15, 12));
-                lunchtime = false;
-            }
-            else
-            {
-                if (DateTime.Now.Hour ==7)
-                    lunchtime = true;                
+                Thread.Sleep(60000);
+                return false;
             }
 
-            if (DateTime.Now.DayOfWeek != DayOfWeek.Friday && (DateTime.Now.TimeOfDay < DateTime.Parse("7:57:00").AddMinutes(m3).AddSeconds(m4).TimeOfDay || DateTime.Now.TimeOfDay > DateTime.Parse(gohome).AddMinutes(m4).AddSeconds(m3).TimeOfDay))
+            if (checkBox1.Checked)//comida
             {
-                calc = true;
-                Thread.Sleep(600000);
-                return false;
+                Random sec = new Random();
+                TimeSpan minu = new TimeSpan(0, int.Parse(numericUpDown1.Value.ToString()), sec.Next(0, 59));
+
+                if (DateTime.Now.TimeOfDay > dateTimePicker3.Value.TimeOfDay && DateTime.Now.TimeOfDay < dateTimePicker3.Value.TimeOfDay.Add(minu))
+                {
+                    Thread.Sleep(60000);
+                    return false;
+                }
             }
-            if (DateTime.Now.DayOfWeek != DayOfWeek.Friday && (!(DateTime.Now.TimeOfDay < lunch.TimeOfDay || DateTime.Now.TimeOfDay > endlunch.TimeOfDay)))
-            {  
-                Thread.Sleep(600000);
-                return false;
-            }
-            if (DateTime.Now.DayOfWeek == DayOfWeek.Friday && (DateTime.Now.TimeOfDay < DateTime.Parse("7:56:00").AddMinutes(m3).AddSeconds(m4).TimeOfDay || DateTime.Now.TimeOfDay > DateTime.Parse("14:03:23").AddMinutes(m4).AddSeconds(m3).TimeOfDay))
+
+            if (checkBox2.Checked)//desayuno
             {
-                calc = true;
-                Thread.Sleep(600000);
-                return false;
+                Random sec = new Random();
+                TimeSpan minu = new TimeSpan(0, int.Parse(numericUpDown1.Value.ToString()), sec.Next(0, 59));
+
+                if (DateTime.Now.TimeOfDay > dateTimePicker4.Value.TimeOfDay && DateTime.Now.TimeOfDay < dateTimePicker4.Value.TimeOfDay.Add(minu))
+                {
+                    Thread.Sleep(60000);
+                    return false;
+                }
             }
-            calc = false;
+
+            if (checkBox3.Checked)//descanso 1
+            {
+                Random sec = new Random();
+                TimeSpan minu = new TimeSpan(0, int.Parse(numericUpDown1.Value.ToString()), sec.Next(0, 59));
+
+                if (DateTime.Now.TimeOfDay > dateTimePicker5.Value.TimeOfDay && DateTime.Now.TimeOfDay < dateTimePicker5.Value.TimeOfDay.Add(minu))
+                {
+                    Thread.Sleep(60000);
+                    return false;
+                }
+            }
+
+            if (checkBox4.Checked)//descanso 2
+            {
+                Random sec = new Random();
+                TimeSpan minu = new TimeSpan(0, int.Parse(numericUpDown1.Value.ToString()), sec.Next(0, 59));
+
+                if (DateTime.Now.TimeOfDay > dateTimePicker6.Value.TimeOfDay && DateTime.Now.TimeOfDay < dateTimePicker6.Value.TimeOfDay.Add(minu))
+                {
+                    Thread.Sleep(60000);
+                    return false;
+                }
+            }
+
+            if (checkBox5.Checked)//descanso 3
+            {
+                Random sec = new Random();
+                TimeSpan minu = new TimeSpan(0, int.Parse(numericUpDown1.Value.ToString()), sec.Next(0, 59));
+
+                if (DateTime.Now.TimeOfDay > dateTimePicker7.Value.TimeOfDay && DateTime.Now.TimeOfDay < dateTimePicker7.Value.TimeOfDay.Add(minu))
+                {
+                    Thread.Sleep(60000);
+                    return false;
+                }
+            }
             return true;
         }
 
         #endregion
+
+        private void ShowTrayBarIconBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AutoMouseMoverForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MovingPeriodBox_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker6_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+                dateTimePicker6.Enabled = numericUpDown4.Enabled = true;
+            else
+                dateTimePicker6.Enabled = numericUpDown4.Enabled = false;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+                dateTimePicker4.Enabled = numericUpDown2.Enabled = true;
+            else
+                dateTimePicker4.Enabled = numericUpDown2.Enabled = false;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox5.Checked)
+                dateTimePicker7.Enabled = numericUpDown5.Enabled = true;
+            else
+                dateTimePicker7.Enabled = numericUpDown5.Enabled = false;
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+                dateTimePicker5.Enabled = numericUpDown3.Enabled = true;
+            else
+                dateTimePicker5.Enabled = numericUpDown3.Enabled = false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                dateTimePicker3.Enabled = numericUpDown1.Enabled = true;
+            else
+                dateTimePicker3.Enabled = numericUpDown1.Enabled = false;
+        }
+
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker5_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker7_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
